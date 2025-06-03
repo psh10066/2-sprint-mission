@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.BDDMockito.willReturn;
 
 import com.sprint.mission.discodeit.AbstractContainerBaseTest;
 import com.sprint.mission.discodeit.dto.binaryContent.BinaryContentDto;
@@ -24,7 +23,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
@@ -57,16 +55,8 @@ public class AWSS3Test extends AbstractContainerBaseTest {
     @Value("${discodeit.storage.s3.presigned-url-expiration}")
     private int expiration;
 
-    @MockitoSpyBean
-    private S3BinaryContentStorage storage;
-
     @Autowired
-    private S3Client s3Client;
-
-    @BeforeEach
-    void setup() throws Exception {
-        willReturn(s3Client).given(storage).getS3Client();
-    }
+    private S3BinaryContentStorage storage;
 
     @Test
     void testPutAndGet() throws IOException {

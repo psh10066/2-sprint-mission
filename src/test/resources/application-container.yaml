@@ -27,3 +27,9 @@ discodeit:
 #      region: ${AWS_S3_REGION:ap-northeast-2}
       bucket: test-bucket
       presigned-url-expiration: ${PRESIGNED_URL_EXPIRATION:600}
+
+---
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
