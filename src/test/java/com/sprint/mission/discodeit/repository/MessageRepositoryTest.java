@@ -9,6 +9,8 @@ import com.sprint.mission.discodeit.entity.ChannelType;
 import com.sprint.mission.discodeit.entity.Message;
 import com.sprint.mission.discodeit.entity.User;
 import com.sprint.mission.discodeit.entity.UserStatus;
+
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
@@ -54,7 +56,7 @@ public class MessageRepositoryTest extends AbstractContainerBaseTest {
         userRepository.deleteAll();
 
         user = new User("user", "user.gmail.com", "password", null);
-        UserStatus userStatus = new UserStatus(user, Instant.MIN);
+        UserStatus userStatus = new UserStatus(user, Instant.now()); // Instant.MIN은 Postgresql의 timestampz에서 호환 안됨
         channel = new Channel(ChannelType.PUBLIC, "Public Channel", "This is a public channel.");
         message1 = new Message(user, channel, "1", null);
         message2 = new Message(user, channel, "2", null);
@@ -65,10 +67,10 @@ public class MessageRepositoryTest extends AbstractContainerBaseTest {
         messageRepository.save(message2);
 
         jdbcTemplate.update("UPDATE  messages SET created_at = ? WHERE id = ?",
-                Instant.parse("2025-05-20T00:00:00Z"), message1.getId());
+            Timestamp.from(Instant.parse("2025-05-20T00:00:00Z")), message1.getId());
 
         jdbcTemplate.update("UPDATE  messages SET created_at = ? WHERE id = ?",
-                Instant.parse("2025-05-21T00:00:00Z"), message2.getId());
+            Timestamp.from(Instant.parse("2025-05-21T00:00:00Z")), message2.getId());
 
         entityManager.flush();
         entityManager.clear();
