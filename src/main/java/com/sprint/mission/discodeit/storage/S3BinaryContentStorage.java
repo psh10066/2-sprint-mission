@@ -100,7 +100,7 @@ public class S3BinaryContentStorage implements BinaryContentStorage {
                 .build();
     }
 
-    private S3Client getS3Client() {
+    public S3Client getS3Client() {
         AwsBasicCredentials awsCredentials = AwsBasicCredentials.create(accessKey, secretKey);
 
         return S3Client.builder()

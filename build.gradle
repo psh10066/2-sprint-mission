@@ -45,6 +45,9 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter'
     // https://testcontainers.com/modules/postgresql/
     testImplementation 'org.testcontainers:postgresql'
+
+    // https://testcontainers.com/modules/localstack/
+    testImplementation 'org.testcontainers:localstack'
 }
 
 tasks.named('test') {
