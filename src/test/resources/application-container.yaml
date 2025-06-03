@@ -1,0 +1,29 @@
+spring:
+#  datasource:
+#    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password: password
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.springframework.test: info
+
+discodeit:
+  storage:
+    type: s3
+    s3:
+#      access-key: ${AWS_S3_ACCESS_KEY}
+#      secret-key: ${AWS_S3_SECRET_KEY}
+#      region: ${AWS_S3_REGION:ap-northeast-2}
+      bucket: test-bucket
+      presigned-url-expiration: ${PRESIGNED_URL_EXPIRATION:600}
