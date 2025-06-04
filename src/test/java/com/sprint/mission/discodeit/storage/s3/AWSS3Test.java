@@ -40,21 +40,6 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequ
 })
 public class AWSS3Test extends AbstractContainerBaseTest {
 
-    @Value("${discodeit.storage.s3.access-key}")
-    private String accessKey;
-
-    @Value("${discodeit.storage.s3.secret-key}")
-    private String secretKey;
-
-    @Value("${discodeit.storage.s3.region}")
-    private String region;
-
-    @Value("${discodeit.storage.s3.bucket}")
-    private String bucket;
-
-    @Value("${discodeit.storage.s3.presigned-url-expiration}")
-    private int expiration;
-
     @Autowired
     private S3BinaryContentStorage storage;
 
