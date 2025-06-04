@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.sprint.mission.discodeit.AbstractContainerBaseTest;
 import com.sprint.mission.discodeit.dto.binaryContent.BinaryContentDto;
 import com.sprint.mission.discodeit.storage.S3BinaryContentStorage;
 import java.io.FileInputStream;
@@ -17,6 +18,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
@@ -36,30 +38,10 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequ
 @SpringBootTest(properties = {
         "discodeit.storage.type=s3"
 })
-@ActiveProfiles("test")
-public class AWSS3Test {
+public class AWSS3Test extends AbstractContainerBaseTest {
 
-    @Value("${discodeit.storage.s3.access-key}")
-    private String accessKey;
-
-    @Value("${discodeit.storage.s3.secret-key}")
-    private String secretKey;
-
-    @Value("${discodeit.storage.s3.region}")
-    private String region;
-
-    @Value("${discodeit.storage.s3.bucket}")
-    private String bucket;
-
-    @Value("${discodeit.storage.s3.presigned-url-expiration}")
-    private int expiration;
-
+    @Autowired
     private S3BinaryContentStorage storage;
-
-    @BeforeEach
-    void setup() throws Exception {
-        storage = new S3BinaryContentStorage(accessKey, secretKey, region, bucket, expiration);
-    }
 
     @Test
     void testPutAndGet() throws IOException {

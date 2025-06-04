@@ -2,6 +2,7 @@ package com.sprint.mission.discodeit.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.sprint.mission.discodeit.AbstractContainerBaseTest;
 import com.sprint.mission.discodeit.config.AppConfig;
 import com.sprint.mission.discodeit.entity.Channel;
 import com.sprint.mission.discodeit.entity.ChannelType;
@@ -18,9 +19,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
-@ActiveProfiles("test")
-@Import(AppConfig.class)
-public class ChannelRepositoryTest {
+public class ChannelRepositoryTest extends AbstractContainerBaseTest {
 
     @Autowired
     private ChannelRepository channelRepository;

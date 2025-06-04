@@ -2,6 +2,7 @@ package com.sprint.mission.discodeit.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.sprint.mission.discodeit.AbstractContainerBaseTest;
 import com.sprint.mission.discodeit.config.AppConfig;
 import com.sprint.mission.discodeit.entity.User;
 import com.sprint.mission.discodeit.entity.UserStatus;
@@ -17,9 +18,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
-@ActiveProfiles("test")
-@Import(AppConfig.class)
-public class UserRepositoryTest {
+public class UserRepositoryTest extends AbstractContainerBaseTest {
 
     @Autowired
     private UserRepository userRepository;

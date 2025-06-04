@@ -38,6 +38,16 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // https://docs.spring.io/spring-boot/appendix/dependency-versions/coordinates.html
+    // https://testcontainers.com/guides/testing-spring-boot-rest-api-using-testcontainers/
+    // https://java.testcontainers.org/test_framework_integration/junit_5/
+    testImplementation 'org.testcontainers:junit-jupiter'
+    // https://testcontainers.com/modules/postgresql/
+    testImplementation 'org.testcontainers:postgresql'
+
+    // https://testcontainers.com/modules/localstack/
+    testImplementation 'org.testcontainers:localstack'
 }
 
 tasks.named('test') {

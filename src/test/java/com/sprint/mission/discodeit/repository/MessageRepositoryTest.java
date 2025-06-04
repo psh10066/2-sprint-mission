@@ -2,12 +2,15 @@ package com.sprint.mission.discodeit.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.sprint.mission.discodeit.AbstractContainerBaseTest;
 import com.sprint.mission.discodeit.config.AppConfig;
 import com.sprint.mission.discodeit.entity.Channel;
 import com.sprint.mission.discodeit.entity.ChannelType;
 import com.sprint.mission.discodeit.entity.Message;
 import com.sprint.mission.discodeit.entity.User;
 import com.sprint.mission.discodeit.entity.UserStatus;
+
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,9 +27,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
-@ActiveProfiles("test")
-@Import(AppConfig.class)
-public class MessageRepositoryTest {
+public class MessageRepositoryTest extends AbstractContainerBaseTest {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -55,7 +56,7 @@ public class MessageRepositoryTest {
         userRepository.deleteAll();
 
         user = new User("user", "user.gmail.com", "password", null);
-        UserStatus userStatus = new UserStatus(user, Instant.MIN);
+        UserStatus userStatus = new UserStatus(user, Instant.now()); // Instant.MIN은 Postgresql의 timestampz에서 호환 안됨
         channel = new Channel(ChannelType.PUBLIC, "Public Channel", "This is a public channel.");
         message1 = new Message(user, channel, "1", null);
         message2 = new Message(user, channel, "2", null);
@@ -66,10 +67,10 @@ public class MessageRepositoryTest {
         messageRepository.save(message2);
 
         jdbcTemplate.update("UPDATE  messages SET created_at = ? WHERE id = ?",
-                Instant.parse("2025-05-20T00:00:00Z"), message1.getId());
+            Timestamp.from(Instant.parse("2025-05-20T00:00:00Z")), message1.getId());
 
         jdbcTemplate.update("UPDATE  messages SET created_at = ? WHERE id = ?",
-                Instant.parse("2025-05-21T00:00:00Z"), message2.getId());
+            Timestamp.from(Instant.parse("2025-05-21T00:00:00Z")), message2.getId());
 
         entityManager.flush();
         entityManager.clear();
